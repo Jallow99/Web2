@@ -1,0 +1,94 @@
+<!-- Path: frontend/src/app/components/home/home.component.html -->
+<app-navbar></app-navbar>
+<!-- Include the navigation bar -->
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-5 text-center">
+          <h1 class="card-title text-primary mb-4 fw-bold">
+            Welcome to Task Manager!
+          </h1>
+          <p class="card-text fs-5 mb-4">
+            Organize your life, boost your productivity, and keep track of your
+            goals with ease.
+          </p>
+
+          <ng-container *ngIf="isLoggedIn; else guestContent">
+            <h3 class="mb-4">
+              Hello, <span class="text-success">{{ userName }}</span
+              >!
+            </h3>
+            <p class="mb-4">
+              You are currently logged in. Start managing your tasks now.
+            </p>
+            <a
+              routerLink="/tasks"
+              class="btn btn-primary btn-lg rounded-pill px-4 me-3 shadow-sm"
+            >
+              <i class="fas fa-tasks me-2"></i>View My Tasks
+            </a>
+            <button
+              (click)="authService.logout()"
+              class="btn btn-outline-danger btn-lg rounded-pill px-4 shadow-sm"
+            >
+              <i class="fas fa-sign-out-alt me-2"></i>Logout
+            </button>
+          </ng-container>
+
+          <ng-template #guestContent>
+            <p class="card-text fs-5 mb-4">
+              Join us today to experience seamless task management.
+            </p>
+            <a
+              routerLink="/register"
+              class="btn btn-success btn-lg rounded-pill px-4 me-3 shadow-sm"
+            >
+              <i class="fas fa-user-plus me-2"></i>Register
+            </a>
+            <a
+              routerLink="/login"
+              class="btn btn-outline-primary btn-lg rounded-pill px-4 shadow-sm"
+            >
+              <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
+          </ng-template>
+
+          <hr class="my-5" />
+
+          <h4 class="text-secondary mb-3">Key Features:</h4>
+          <ul class="list-unstyled text-start mx-auto" style="max-width: 600px">
+            <li class="d-flex align-items-center mb-2">
+              <i class="fas fa-check-circle text-info me-3 fs-4"></i>
+              <span class="fs-5"
+                >User Authentication & Authorization (Register, Login,
+                Profile)</span
+              >
+            </li>
+            <li class="d-flex align-items-center mb-2">
+              <i class="fas fa-check-circle text-info me-3 fs-4"></i>
+              <span class="fs-5">Full CRUD Operations for Tasks</span>
+            </li>
+            <li class="d-flex align-items-center mb-2">
+              <i class="fas fa-check-circle text-info me-3 fs-4"></i>
+              <span class="fs-5"
+                >Responsive and User-Friendly Angular Frontend</span
+              >
+            </li>
+            <li class="d-flex align-items-center mb-2">
+              <i class="fas fa-check-circle text-info me-3 fs-4"></i>
+              <span class="fs-5"
+                >RESTful API Integration with Node.js/Express.js</span
+              >
+            </li>
+            <li class="d-flex align-items-center">
+              <i class="fas fa-check-circle text-info me-3 fs-4"></i>
+              <span class="fs-5">MongoDB Atlas Database Management</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

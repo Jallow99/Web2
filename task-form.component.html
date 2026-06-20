@@ -1,0 +1,142 @@
+<!-- Path: frontend/src/app/components/task-form/task-form.component.html -->
+<app-navbar></app-navbar>
+<!-- Include the navigation bar -->
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4">
+          <h2
+            class="card-title text-center mb-4"
+            [ngClass]="{
+              'text-primary': isEditMode,
+              'text-success': !isEditMode
+            }"
+          >
+            <i
+              class="fas me-2"
+              [ngClass]="{
+                'fa-edit': isEditMode,
+                'fa-plus-circle': !isEditMode
+              }"
+            ></i>
+            {{ isEditMode ? "Edit Task" : "Add New Task" }}
+          </h2>
+
+          <!-- Success and Error Messages -->
+          <div
+            *ngIf="successMessage"
+            class="alert alert-success text-center mb-3"
+            role="alert"
+          >
+            {{ successMessage }}
+          </div>
+          <div
+            *ngIf="errorMessage"
+            class="alert alert-danger text-center mb-3"
+            role="alert"
+          >
+            {{ errorMessage }}
+          </div>
+
+          <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="title" class="form-label">Task Title</label>
+              <input
+                type="text"
+                class="form-control rounded-pill px-3"
+                id="title"
+                formControlName="title"
+                [ngClass]="{
+                  'is-invalid': f['title'].touched && f['title'].errors
+                }"
+              />
+              <div
+                *ngIf="f['title'].touched && f['title'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['title'].errors['required']">
+                  Task title is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label"
+                >Description (Optional)</label
+              >
+              <textarea
+                class="form-control rounded-3 px-3"
+                id="description"
+                formControlName="description"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="status" class="form-label">Status</label>
+              <select
+                class="form-select rounded-pill px-3"
+                id="status"
+                formControlName="status"
+                [ngClass]="{
+                  'is-invalid': f['status'].touched && f['status'].errors
+                }"
+              >
+                <option value="pending">Pending</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+              </select>
+              <div
+                *ngIf="f['status'].touched && f['status'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['status'].errors['required']">
+                  Status is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="dueDate" class="form-label"
+                >Due Date (Optional)</label
+              >
+              <input
+                type="date"
+                class="form-control rounded-pill px-3"
+                id="dueDate"
+                formControlName="dueDate"
+              />
+            </div>
+
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-lg rounded-pill shadow-sm"
+                [ngClass]="{
+                  'btn-primary': isEditMode,
+                  'btn-success': !isEditMode
+                }"
+                [disabled]="taskForm.invalid"
+              >
+                <i
+                  class="fas me-2"
+                  [ngClass]="{ 'fa-save': isEditMode, 'fa-plus': !isEditMode }"
+                ></i>
+                {{ isEditMode ? "Update Task" : "Create Task" }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-lg rounded-pill"
+                (click)="goToTasks()"
+              >
+                <i class="fas fa-times-circle me-2"></i>Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
